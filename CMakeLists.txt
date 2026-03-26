@@ -14,11 +14,11 @@ set(CMAKE_CXX_EXTENSIONS OFF)
 find_package(ftxui CONFIG REQUIRED)
 
 file(GLOB_RECURSE SOURCES CONFIGURE_DEPENDS 
-    "src/cmdj/*.cpp"
+    "src/*.cpp"
 )
 
 file(GLOB_RECURSE HEADERS CONFIGURE_DEPENDS 
-    "include/cmdj/*.h"
+    "include/*.h"
 )
 
 add_executable(cmdj ${SOURCES} ${HEADERS})

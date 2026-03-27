@@ -42,7 +42,8 @@ ui::EqSelector::EqSelector(core::AppState& appState)
 }
 
 Element ui::EqSelector::OnRender() {
-    return m_buttons->Render();
+    // xframe preserves the shapes of the buttons and makes them extend offscreen as needed
+    return m_buttons->Render() | xframe;
 }
 
 // factory function for transition selector

@@ -25,7 +25,7 @@ Component ui::selectableButton(
              element = element | bgcolor(ui::theme::kButtonSelected) | color(ui::theme::kButtonSelectedText);
          }
          else if (state.focused) {
-             element = element | bgcolor(ui::theme::kButtonFocused);
+             element = element | bgcolor(ui::theme::kButtonFocused) | focus;
          }
          else {
              element = element | color(Color::GrayLight);

@@ -22,13 +22,13 @@ Component ui::selectableButton(
 
          // apply styling based on selected State
          if (isSelectedCallback()) {
-             element = element | bgcolor(ui::theme::kButtonSelected) | color(ui::theme::kButtonSelectedText);
+             element = element | bgcolor(ui::theme::kButtonSelected) | color(ui::theme::kTextDark);
          }
          else if (state.focused) {
              element = element | bgcolor(ui::theme::kButtonFocused) | focus;
          }
          else {
-             element = element | color(Color::GrayLight);
+             element = element | color(ui::theme::kTextLight);
          }
 
          return element | size(HEIGHT, EQUAL, 3) | borderEmpty;

@@ -7,5 +7,8 @@ namespace core {
 	class AppState {
 	public:
 		TransitionType m_transitionState{};
+		EqualizerType m_eqState{};
+		VolumeType m_volumeState{};
+		EffectType m_effectState{};
 	};
 }

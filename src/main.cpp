@@ -1,7 +1,11 @@
 #include "ui/primitives/truncated_text.h"
 #include "ui/primitives/selectable_button_row.h"
 #include "core/app_state.h"
+
 #include "ui/panels/transition_selector.h"
+#include "ui/panels/eq_selector.h"
+#include "ui/panels/volume_selector.h"
+#include "ui/panels/effect_selector.h"
 
 #include <string>
 
@@ -16,12 +20,30 @@ using namespace ftxui;
 
 int main() {
     core::AppState appState{};
-    // generate toy transition panel for testing
-    auto transitionPanel = ui::transitionSelector(appState);
 
-    auto layout = Renderer(transitionPanel, [&] {
+    // generate toy panels for testing
+    auto transitionPanel = ui::transitionSelector(appState);
+    auto eqPanel = ui::eqSelector(appState);
+    auto volumePanel = ui::volumeSelector(appState);
+    auto effectPanel = ui::effectSelector(appState);
+
+    // needed so that you can navigate vertically
+    auto allPanels = Container::Vertical({
+        transitionPanel,
+        eqPanel,
+        volumePanel,
+        effectPanel
+        });
+
+    auto layout = Renderer(allPanels, [&] {
         return vbox({
             transitionPanel->Render(),
+            separatorEmpty(),
+            eqPanel->Render(),
+            separatorEmpty(),
+            volumePanel->Render(),
+            separatorEmpty(),
+            effectPanel->Render(),
             }) | center;
         });
 

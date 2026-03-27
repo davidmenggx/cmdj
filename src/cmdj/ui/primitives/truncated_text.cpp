@@ -28,8 +28,9 @@ namespace ui {
 	void TruncatedText::Render(Screen& screen) {
 		int availableTextWidth{ box_.x_max - box_.x_min + 1 };
 		// do not even try to render the text if no room given
-		if (availableTextWidth <= 0)
+		if (availableTextWidth <= 0) {
 			return;
+		}
 
 		Element child{};
 		if (static_cast<int>(std::ssize(m_glyphs)) <= availableTextWidth) {
@@ -47,16 +48,20 @@ namespace ui {
 			std::string truncatedText{};
 
 			for (int i{ 0 }; i < targetTextWidth; ++i) {
-				if (m_glyphs[i].empty())
+				if (m_glyphs[i].empty()) {
 					continue;
+				}
 				// edge case when we have just one character left before truncating
 				// and said character is too wide. fill with placeholder space character
-				if (i == targetTextWidth - 1 
+				if (i == targetTextWidth - 1
 					&& i + 1 < static_cast<int>(std::ssize(m_glyphs))
-					&& m_glyphs[i + 1].empty())
+					&& m_glyphs[i + 1].empty()
+					) {
 					truncatedText += " ";
-				else
+				}
+				else {
 					truncatedText += m_glyphs[i];
+				}
 			}
 			truncatedText += "...";
 			child = text(truncatedText);

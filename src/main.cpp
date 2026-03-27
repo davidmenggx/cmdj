@@ -1,4 +1,7 @@
 #include "ui/primitives/truncated_text.h"
+#include "ui/primitives/selectable_button_row.h"
+#include "core/app_state.h"
+#include "ui/panels/transition_selector.h"
 
 #include <string>
 
@@ -6,32 +9,24 @@
 #include <ftxui/dom/node.hpp>
 #include <ftxui/screen/screen.hpp>
 #include <ftxui/screen/string.hpp>
+#include <ftxui/component/component.hpp>
+#include <ftxui/component/screen_interactive.hpp>
 
 using namespace ftxui;
 
 int main() {
-    std::string my_text{ "I am a very long text 😂😂 that may overflow!!!" };
+    core::AppState appState{};
+    // generate toy transition panel for testing
+    auto transitionPanel = ui::transitionSelector(appState);
 
-    auto document = vbox({
-        text("50 char container:"),
-        ui::truncatedText(my_text) | border | size(WIDTH, EQUAL, 50),
-
-        text("27 char container:"),
-        ui::truncatedText(my_text) | border | size(WIDTH, EQUAL, 27),
-
-        text("40 char container:"),
-        ui::truncatedText(my_text) | border | size(WIDTH, EQUAL, 40),
-
-        text("4 char container:"),
-        ui::truncatedText(my_text) | border | size(WIDTH, EQUAL, 4),
-
-        text("3 char container:"),
-        ui::truncatedText(my_text) | border | size(WIDTH, EQUAL, 3),
+    auto layout = Renderer(transitionPanel, [&] {
+        return vbox({
+            transitionPanel->Render(),
+            }) | center;
         });
 
-    auto screen = Screen::Create(Dimension::Full(), Dimension::Fit(document));
-    Render(screen, document);
-    screen.Print();
+    auto screen = ScreenInteractive::FitComponent();
+    screen.Loop(layout);
 
     return 0;
 }

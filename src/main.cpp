@@ -8,6 +8,7 @@
 #include "ui/panels/volume_selector.h"
 #include "ui/panels/effect_selector.h"
 #include "ui/panels/track_info.h"
+#include "ui/panels/waveform_viewer.h"
 
 #include <string>
 
@@ -24,15 +25,14 @@ int main() {
     core::AppState appState{};
 
     // generate toy panels for testing
+    auto presetPanel = ui::transitionPresetSelector(appState);
     auto volumePanel = ui::volumeSelector(appState);
     auto eqPanel = ui::eqSelector(appState);
     auto effectPanel = ui::effectSelector(appState);
 
     // needed so that you can navigate vertically
     auto allPanels = Container::Vertical({
-        volumePanel,
-        eqPanel,
-        effectPanel
+        presetPanel
         });
 
     Element firstSong = ui::trackInfo(
@@ -50,21 +50,21 @@ many many many lines so I will not fit onto the page at all!)",
         "4:23"
         );
 
+    ui::WaveformViewer wv{ appState };
+
     auto layout = Renderer(allPanels, [&] {
         return vbox({
             firstSong,
             separatorEmpty(),
-            volumePanel->Render(),
-            separatorEmpty(),
-            eqPanel->Render(),
-            separatorEmpty(),
-            effectPanel->Render(),
+            wv.OnRender(),
             separatorEmpty(),
             secondSong,
+            separatorEmpty(),
+            presetPanel->Render() | center,    
             }) | center;
         });
 
-    auto screen = ScreenInteractive::FitComponent();
+    auto screen = ScreenInteractive::Fullscreen();
     screen.Loop(layout);
 
     return 0;

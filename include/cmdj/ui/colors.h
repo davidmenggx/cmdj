@@ -11,4 +11,7 @@ namespace ui::theme {
 	// Transition/Volume/EQ/Effect selector themes
 	inline const ftxui::Color kButtonSelected{ ftxui::Color{ 250, 250, 250 } };
 	inline const ftxui::Color kButtonFocused{ ftxui::Color{ 30, 30, 30 } };
+
+	// Waveform viewer themes
+	inline const ftxui::Color kWaveformBackground{ ftxui::Color{ 15, 15, 15 } };
 }

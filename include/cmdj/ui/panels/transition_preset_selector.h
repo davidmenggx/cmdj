@@ -6,15 +6,15 @@
 #include <ftxui/component/component_base.hpp>
 
 namespace ui {
-    class TransitionSelector : public ftxui::ComponentBase {
+    class TransitionPresetSelector : public ftxui::ComponentBase {
         core::AppState& m_appState;
         ftxui::Component m_buttons;
 
     public:
-        TransitionSelector(core::AppState& appState);
+        TransitionPresetSelector(core::AppState& appState);
         ftxui::Element OnRender() override;
     };
 
     // factory function for transition selector
-    ftxui::Component transitionSelector(core::AppState& state);
+    ftxui::Component transitionPresetSelector(core::AppState& state);
 }

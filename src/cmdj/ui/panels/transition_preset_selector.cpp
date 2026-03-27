@@ -1,4 +1,4 @@
-#include "ui/panels/transition_selector.h"
+#include "ui/panels/transition_preset_selector.h"
 #include "ui/primitives/selectable_button_row.h"
 #include "core/button_types.h"
 #include "core/app_state.h"
@@ -7,7 +7,7 @@
 
 using namespace ftxui;
 
-ui::TransitionSelector::TransitionSelector(core::AppState& appState)
+ui::TransitionPresetSelector::TransitionPresetSelector(core::AppState& appState)
     : m_appState{ appState }
 {
     std::vector<ui::ButtonConfig> buttonConfigs{ {
@@ -44,12 +44,12 @@ ui::TransitionSelector::TransitionSelector(core::AppState& appState)
     Add(m_buttons);
 }
 
-Element ui::TransitionSelector::OnRender() {
+Element ui::TransitionPresetSelector::OnRender() {
     // xframe preserves the shapes of the buttons and makes them extend offscreen as needed
     return m_buttons->Render() | xframe;
 }
 
 // factory function for transition selector
-Component ui::transitionSelector(core::AppState& appState) {
-    return Make<TransitionSelector>(appState);
+Component ui::transitionPresetSelector(core::AppState& appState) {
+    return Make<TransitionPresetSelector>(appState);
 }

@@ -24,12 +24,12 @@ enum class VolumeType {
 };
 
 enum class EqualizerType {
-	kCenterBass,
-	kEndBass,
-	kStartBass,
-	kThreeBand,
-	kQuickBass,
-	kLongBass,
+	kCenterBassSwap,
+	kEndBassSwap,
+	kStartBassSwap,
+	kThreeBandFade,
+	kQuickBassCut,
+	kLongBassCut,
 	kNone,
 };
 

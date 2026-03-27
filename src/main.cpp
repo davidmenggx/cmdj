@@ -3,7 +3,7 @@
 
 #include "core/app_state.h"
 
-#include "ui/panels/transition_selector.h"
+#include "ui/panels/transition_preset_selector.h"
 #include "ui/panels/eq_selector.h"
 #include "ui/panels/volume_selector.h"
 #include "ui/panels/effect_selector.h"
@@ -24,16 +24,14 @@ int main() {
     core::AppState appState{};
 
     // generate toy panels for testing
-    auto transitionPanel = ui::transitionSelector(appState);
-    auto eqPanel = ui::eqSelector(appState);
     auto volumePanel = ui::volumeSelector(appState);
+    auto eqPanel = ui::eqSelector(appState);
     auto effectPanel = ui::effectSelector(appState);
 
     // needed so that you can navigate vertically
     auto allPanels = Container::Vertical({
-        transitionPanel,
-        eqPanel,
         volumePanel,
+        eqPanel,
         effectPanel
         });
 
@@ -56,11 +54,9 @@ many many many lines so I will not fit onto the page at all!)",
         return vbox({
             firstSong,
             separatorEmpty(),
-            transitionPanel->Render(),
+            volumePanel->Render(),
             separatorEmpty(),
             eqPanel->Render(),
-            separatorEmpty(),
-            volumePanel->Render(),
             separatorEmpty(),
             effectPanel->Render(),
             separatorEmpty(),

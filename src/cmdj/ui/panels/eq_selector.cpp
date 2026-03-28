@@ -7,46 +7,46 @@
 
 using namespace ftxui;
 
-ui::EqSelector::EqSelector(core::AppState& appState)
-    : m_appState{ appState }
+ui::EqSelectorBase::EqSelectorBase(core::AppState& app_state)
+    : m_app_state{ app_state }
 {
-    std::vector<ui::ButtonConfig> buttonConfigs{ {
+    std::vector<ui::ButtonConfig> button_configs{ {
         {"Center bass swap",
-         [&]() { return m_appState.m_eqState == EqualizerType::kCenterBassSwap; },
+         [&]() { return m_app_state.m_eq_state == EqualizerType::kCenterBassSwap; },
          // temporary, change the onClick to actually do something in the app state:
-         [&]() { m_appState.m_eqState = EqualizerType::kCenterBassSwap; }},
+         [&]() { m_app_state.m_eq_state = EqualizerType::kCenterBassSwap; }},
         {"End bass swap",
-         [&]() { return m_appState.m_eqState == EqualizerType::kEndBassSwap; },
-         [&]() { m_appState.m_eqState = EqualizerType::kEndBassSwap; }},
+         [&]() { return m_app_state.m_eq_state == EqualizerType::kEndBassSwap; },
+         [&]() { m_app_state.m_eq_state = EqualizerType::kEndBassSwap; }},
         {"Start bass swap",
-         [&]() { return m_appState.m_eqState == EqualizerType::kStartBassSwap; },
-         [&]() { m_appState.m_eqState = EqualizerType::kStartBassSwap; }},
+         [&]() { return m_app_state.m_eq_state == EqualizerType::kStartBassSwap; },
+         [&]() { m_app_state.m_eq_state = EqualizerType::kStartBassSwap; }},
         {"Three band fade",
-         [&]() { return m_appState.m_eqState == EqualizerType::kThreeBandFade; },
-         [&]() { m_appState.m_eqState = EqualizerType::kThreeBandFade; }},
+         [&]() { return m_app_state.m_eq_state == EqualizerType::kThreeBandFade; },
+         [&]() { m_app_state.m_eq_state = EqualizerType::kThreeBandFade; }},
         {"Quick bass cut",
-         [&]() { return m_appState.m_eqState == EqualizerType::kQuickBassCut; },
-         [&]() { m_appState.m_eqState = EqualizerType::kQuickBassCut; }},
+         [&]() { return m_app_state.m_eq_state == EqualizerType::kQuickBassCut; },
+         [&]() { m_app_state.m_eq_state = EqualizerType::kQuickBassCut; }},
         {"Long bass cut",
-         [&]() { return m_appState.m_eqState == EqualizerType::kLongBassCut; },
-         [&]() { m_appState.m_eqState = EqualizerType::kLongBassCut; }},
+         [&]() { return m_app_state.m_eq_state == EqualizerType::kLongBassCut; },
+         [&]() { m_app_state.m_eq_state = EqualizerType::kLongBassCut; }},
         {"None",
-         [&]() { return m_appState.m_eqState == EqualizerType::kNone; },
-         [&]() { m_appState.m_eqState = EqualizerType::kNone; }},
+         [&]() { return m_app_state.m_eq_state == EqualizerType::kNone; },
+         [&]() { m_app_state.m_eq_state = EqualizerType::kNone; }},
     } };
 
-    m_buttons = ui::selectableButtonRow(buttonConfigs);
+    m_buttons = ui::SelectableButtonRow(button_configs);
 
     // ftxui, add the row to component hierarchy/tree
     Add(m_buttons);
 }
 
-Element ui::EqSelector::OnRender() {
+Element ui::EqSelectorBase::OnRender() {
     // xframe preserves the shapes of the buttons and makes them extend offscreen as needed
     return m_buttons->Render() | xframe;
 }
 
 // factory function for transition selector
-Component ui::eqSelector(core::AppState& appState) {
-    return Make<EqSelector>(appState);
+Component ui::EqSelector(core::AppState& app_state) {
+    return Make<EqSelectorBase>(app_state);
 }

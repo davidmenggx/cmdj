@@ -9,7 +9,7 @@
 
 using namespace ftxui;
 
-Element ui::trackInfo(
+Element ui::TrackInfo(
     const std::string& title,
     const std::string& artists,
     const std::string& bpm,
@@ -20,20 +20,20 @@ Element ui::trackInfo(
     // The artist names            4:52
     // ^^leftColumn       rightColumn^^
 
-    auto leftColumn = vbox({
-        truncatedText(title),
-        truncatedText(artists) | color(ui::theme::kTextMedium)
+    auto left_column = vbox({
+        TruncatedText(title),
+        TruncatedText(artists) | color(ui::theme::kTextMedium)
         });
 
-    auto rightColumn = vbox({
+    auto right_column = vbox({
         hbox({filler(), text(bpm)}),
         hbox({filler(), text(duration) | color(ui::theme::kTextMedium)})
         });
 
     return hbox({
-        leftColumn | flex,
+        left_column | flex,
         separatorEmpty(),
         separatorEmpty(),
-        rightColumn
+        right_column
         });
 }

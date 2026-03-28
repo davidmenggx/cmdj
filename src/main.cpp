@@ -25,17 +25,14 @@ int main() {
     core::AppState appState{};
 
     // generate toy panels for testing
-    auto presetPanel = ui::transitionPresetSelector(appState);
-    auto volumePanel = ui::volumeSelector(appState);
-    auto eqPanel = ui::eqSelector(appState);
-    auto effectPanel = ui::effectSelector(appState);
+    auto preset_panel = ui::TransitionPresetSelector(appState);
 
     // needed so that you can navigate vertically
-    auto allPanels = Container::Vertical({
-        presetPanel
+    auto all_panels = Container::Vertical({
+        preset_panel
         });
 
-    Element firstSong = ui::trackInfo(
+    Element first_song = ui::TrackInfo(
         R"(I am a very very very long line of text/song title that will take up 
 many many many lines so I will not fit onto the page at all!)",
         "David",
@@ -43,7 +40,7 @@ many many many lines so I will not fit onto the page at all!)",
         "3:48"
         );
 
-    Element secondSong = ui::trackInfo(
+    Element second_song = ui::TrackInfo(
         "Sandra's Rose",
         "Drake",
         "130 BPM",
@@ -52,15 +49,15 @@ many many many lines so I will not fit onto the page at all!)",
 
     ui::WaveformViewer wv{ appState };
 
-    auto layout = Renderer(allPanels, [&] {
+    auto layout = Renderer(all_panels, [&] {
         return vbox({
-            firstSong,
+            first_song,
             separatorEmpty(),
             wv.OnRender(),
             separatorEmpty(),
-            secondSong,
+            second_song,
             separatorEmpty(),
-            presetPanel->Render() | center,    
+            preset_panel->Render() | center,    
             }) | center;
         });
 

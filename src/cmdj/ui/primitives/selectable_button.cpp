@@ -10,10 +10,10 @@
 using namespace ftxui;
 
 // factory function to generate a selectable button for each selectable type
-Component ui::selectableButton(
+Component ui::SelectableButton(
     const std::string& label,
-    std::function<bool()> isSelectedCallback, // returns true if the button is selected
-    std::function<void()> onClick
+    std::function<bool()> is_selected_callback, // returns true if the button is selected
+    std::function<void()> on_click
 ) {
      ButtonOption option;
 
@@ -21,7 +21,7 @@ Component ui::selectableButton(
          auto element = text("  " + label + "  ") | center;
 
          // apply styling based on selected State
-         if (isSelectedCallback()) {
+         if (is_selected_callback()) {
              element = element | bgcolor(ui::theme::kButtonSelected) | color(ui::theme::kTextDark);
          }
          else if (state.focused) {
@@ -34,5 +34,5 @@ Component ui::selectableButton(
          return element | size(HEIGHT, EQUAL, 3) | borderEmpty;
      };
 
-     return Button(label, onClick, option);
+     return Button(label, on_click, option);
 }

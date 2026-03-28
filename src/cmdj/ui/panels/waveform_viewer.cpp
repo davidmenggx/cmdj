@@ -7,8 +7,8 @@
 
 using namespace ftxui;
 
-ui::WaveformViewer::WaveformViewer(core::AppState& appState)
-    : m_appState{ appState }
+ui::WaveformViewer::WaveformViewer(core::AppState& app_state)
+    : m_app_state{ app_state }
 {
 }
 

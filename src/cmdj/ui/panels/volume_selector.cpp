@@ -7,49 +7,49 @@
 
 using namespace ftxui;
 
-ui::VolumeSelector::VolumeSelector(core::AppState& appState)
-    : m_appState{ appState }
+ui::VolumeSelectorBase::VolumeSelectorBase(core::AppState& app_state)
+    : m_app_state{ app_state }
 {
-    std::vector<ui::ButtonConfig> buttonConfigs{ {
+    std::vector<ui::ButtonConfig> button_configs{ {
         {"Smooth crossfade",
-         [&]() { return m_appState.m_volumeState == VolumeType::kSmoothCrossfade; },
+         [&]() { return m_app_state.m_volume_state == VolumeType::kSmoothCrossfade; },
          // temporary, change the onClick to actually do something in the app state:
-         [&]() { m_appState.m_volumeState = VolumeType::kSmoothCrossfade; }},
+         [&]() { m_app_state.m_volume_state = VolumeType::kSmoothCrossfade; }},
         {"Overlap",
-         [&]() { return m_appState.m_volumeState == VolumeType::kOverlap; },
-         [&]() { m_appState.m_volumeState = VolumeType::kOverlap; }},
+         [&]() { return m_app_state.m_volume_state == VolumeType::kOverlap; },
+         [&]() { m_app_state.m_volume_state = VolumeType::kOverlap; }},
         {"Fade in fade out",
-         [&]() { return m_appState.m_volumeState == VolumeType::kFadeInFadeOut; },
-         [&]() { m_appState.m_volumeState = VolumeType::kFadeInFadeOut; }},
+         [&]() { return m_app_state.m_volume_state == VolumeType::kFadeInFadeOut; },
+         [&]() { m_app_state.m_volume_state = VolumeType::kFadeInFadeOut; }},
         {"Cut in fade out",
-         [&]() { return m_appState.m_volumeState == VolumeType::kCutInFadeOut; },
-         [&]() { m_appState.m_volumeState = VolumeType::kCutInFadeOut; }},
+         [&]() { return m_app_state.m_volume_state == VolumeType::kCutInFadeOut; },
+         [&]() { m_app_state.m_volume_state = VolumeType::kCutInFadeOut; }},
         {"Fade in cut out",
-         [&]() { return m_appState.m_volumeState == VolumeType::kFadeInCutOut; },
-         [&]() { m_appState.m_volumeState = VolumeType::kFadeInCutOut; }},
+         [&]() { return m_app_state.m_volume_state == VolumeType::kFadeInCutOut; },
+         [&]() { m_app_state.m_volume_state = VolumeType::kFadeInCutOut; }},
         {"Center cut",
-         [&]() { return m_appState.m_volumeState == VolumeType::kCenterCut; },
-         [&]() { m_appState.m_volumeState = VolumeType::kCenterCut; }},
+         [&]() { return m_app_state.m_volume_state == VolumeType::kCenterCut; },
+         [&]() { m_app_state.m_volume_state = VolumeType::kCenterCut; }},
         {"Crossfade",
-         [&]() { return m_appState.m_volumeState == VolumeType::kCrossfade; },
-         [&]() { m_appState.m_volumeState = VolumeType::kCrossfade; }},
+         [&]() { return m_app_state.m_volume_state == VolumeType::kCrossfade; },
+         [&]() { m_app_state.m_volume_state = VolumeType::kCrossfade; }},
         {"Fade in fast out",
-         [&]() { return m_appState.m_volumeState == VolumeType::kFadeInFastOut; },
-         [&]() { m_appState.m_volumeState = VolumeType::kFadeInFastOut; }},
+         [&]() { return m_app_state.m_volume_state == VolumeType::kFadeInFastOut; },
+         [&]() { m_app_state.m_volume_state = VolumeType::kFadeInFastOut; }},
     } };
 
-    m_buttons = ui::selectableButtonRow(buttonConfigs);
+    m_buttons = ui::SelectableButtonRow(button_configs);
 
     // ftxui, add the row to component hierarchy/tree
     Add(m_buttons);
 }
 
-Element ui::VolumeSelector::OnRender() {
+Element ui::VolumeSelectorBase::OnRender() {
     // xframe preserves the shapes of the buttons and makes them extend offscreen as needed
     return m_buttons->Render() | xframe;
 }
 
 // factory function for transition selector
-Component ui::volumeSelector(core::AppState& appState) {
-    return Make<VolumeSelector>(appState);
+Component ui::VolumeSelector(core::AppState& app_state) {
+    return Make<VolumeSelectorBase>(app_state);
 }

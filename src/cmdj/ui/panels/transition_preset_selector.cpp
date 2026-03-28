@@ -7,49 +7,49 @@
 
 using namespace ftxui;
 
-ui::TransitionPresetSelector::TransitionPresetSelector(core::AppState& appState)
-    : m_appState{ appState }
+ui::TransitionPresetSelectorBase::TransitionPresetSelectorBase(core::AppState& app_state)
+    : m_app_state{ app_state }
 {
-    std::vector<ui::ButtonConfig> buttonConfigs{ {
+    std::vector<ui::ButtonConfig> button_configs{ {
         {"Custom",
-         [&]() { return m_appState.m_transitionState == TransitionType::kCustom; },
+         [&]() { return m_app_state.m_transition_state == TransitionType::kCustom; },
          // temporary, change the onClick to actually do something in the app state:
-         [&]() { m_appState.m_transitionState = TransitionType::kCustom; }},
+         [&]() { m_app_state.m_transition_state = TransitionType::kCustom; }},
         {"Fade",
-         [&]() { return m_appState.m_transitionState == TransitionType::kFade; },
-         [&]() { m_appState.m_transitionState = TransitionType::kFade; }},
+         [&]() { return m_app_state.m_transition_state == TransitionType::kFade; },
+         [&]() { m_app_state.m_transition_state = TransitionType::kFade; }},
         {"Rise",
-         [&]() { return m_appState.m_transitionState == TransitionType::kRise; },
-         [&]() { m_appState.m_transitionState = TransitionType::kRise; }},
+         [&]() { return m_app_state.m_transition_state == TransitionType::kRise; },
+         [&]() { m_app_state.m_transition_state = TransitionType::kRise; }},
         {"Blend",
-         [&]() { return m_appState.m_transitionState == TransitionType::kBlend; },
-         [&]() { m_appState.m_transitionState = TransitionType::kBlend; }},
+         [&]() { return m_app_state.m_transition_state == TransitionType::kBlend; },
+         [&]() { m_app_state.m_transition_state = TransitionType::kBlend; }},
         {"Wave",
-         [&]() { return m_appState.m_transitionState == TransitionType::kWave; },
-         [&]() { m_appState.m_transitionState = TransitionType::kWave; }},
+         [&]() { return m_app_state.m_transition_state == TransitionType::kWave; },
+         [&]() { m_app_state.m_transition_state = TransitionType::kWave; }},
         {"Melt",
-         [&]() { return m_appState.m_transitionState == TransitionType::kMelt; },
-         [&]() { m_appState.m_transitionState = TransitionType::kMelt; }},
+         [&]() { return m_app_state.m_transition_state == TransitionType::kMelt; },
+         [&]() { m_app_state.m_transition_state = TransitionType::kMelt; }},
         {"Slam",
-         [&]() { return m_appState.m_transitionState == TransitionType::kSlam; },
-         [&]() { m_appState.m_transitionState = TransitionType::kSlam; }},
+         [&]() { return m_app_state.m_transition_state == TransitionType::kSlam; },
+         [&]() { m_app_state.m_transition_state = TransitionType::kSlam; }},
         {"None",
-         [&]() { return m_appState.m_transitionState == TransitionType::kNone; },
-         [&]() { m_appState.m_transitionState = TransitionType::kNone; }},
+         [&]() { return m_app_state.m_transition_state == TransitionType::kNone; },
+         [&]() { m_app_state.m_transition_state = TransitionType::kNone; }},
     } };
 
-    m_buttons = ui::selectableButtonRow(buttonConfigs);
+    m_buttons = ui::SelectableButtonRow(button_configs);
 
     // ftxui, add the row to component hierarchy/tree
     Add(m_buttons);
 }
 
-Element ui::TransitionPresetSelector::OnRender() {
+Element ui::TransitionPresetSelectorBase::OnRender() {
     // xframe preserves the shapes of the buttons and makes them extend offscreen as needed
     return m_buttons->Render() | xframe;
 }
 
 // factory function for transition selector
-Component ui::transitionPresetSelector(core::AppState& appState) {
-    return Make<TransitionPresetSelector>(appState);
+Component ui::TransitionPresetSelector(core::AppState& app_state) {
+    return Make<TransitionPresetSelectorBase>(app_state);
 }

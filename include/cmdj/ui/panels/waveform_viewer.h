@@ -7,10 +7,10 @@
 
 namespace ui {
 	class WaveformViewer : public ftxui::ComponentBase {
-		core::AppState& m_appState;
+		core::AppState& m_app_state;
 		
 	public:
-		WaveformViewer(core::AppState& appState);
+		WaveformViewer(core::AppState& app_state);
 		ftxui::Element OnRender() override;
 		// do i want an OnEvent here?
 	};

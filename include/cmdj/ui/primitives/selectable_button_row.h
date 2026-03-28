@@ -10,10 +10,10 @@ namespace ui {
 	// simple wrapper to hold button data, match ui::selectableButton
 	struct ButtonConfig {
 		std::string label{};
-		std::function<bool()> isSelected{};
-		std::function<void()> onClick{};
+		std::function<bool()> is_selected_callback{};
+		std::function<void()> on_click{};
 	};
 
 	// factory function to generate a dynamic row of selectable buttons
-	ftxui::Component selectableButtonRow(const std::vector<ButtonConfig>& buttonConfigs);
+	ftxui::Component SelectableButtonRow(const std::vector<ButtonConfig>& button_configs);
 }

@@ -6,15 +6,15 @@
 #include <ftxui/component/component_base.hpp>
 
 namespace ui {
-    class VolumeSelector : public ftxui::ComponentBase {
-        core::AppState& m_appState;
+    class VolumeSelectorBase : public ftxui::ComponentBase {
+        core::AppState& m_app_state;
         ftxui::Component m_buttons;
 
     public:
-        VolumeSelector(core::AppState& appState);
+        VolumeSelectorBase(core::AppState& app_state);
         ftxui::Element OnRender() override;
     };
 
     // factory function for transition selector
-    ftxui::Component volumeSelector(core::AppState& state);
+    ftxui::Component VolumeSelector(core::AppState& app_state);
 }

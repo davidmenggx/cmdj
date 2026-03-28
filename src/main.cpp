@@ -11,6 +11,7 @@
 #include "ui/panels/waveform_viewer.h"
 
 #include <string>
+#include <memory>
 
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/dom/node.hpp>
@@ -22,15 +23,7 @@
 using namespace ftxui;
 
 int main() {
-    core::AppState appState{};
-
-    // generate toy panels for testing
-    auto preset_panel = ui::TransitionPresetSelector(appState);
-
-    // needed so that you can navigate vertically
-    auto all_panels = Container::Vertical({
-        preset_panel
-        });
+    core::AppState app_state{};
 
     Element first_song = ui::TrackInfo(
         R"(I am a very very very long line of text/song title that will take up 
@@ -47,13 +40,19 @@ many many many lines so I will not fit onto the page at all!)",
         "4:23"
         );
 
-    ui::WaveformViewer wv{ appState };
+    auto preset_panel = ui::TransitionPresetSelector(app_state);
+    auto wv = std::make_shared<ui::WaveformViewer>(app_state);
+
+    auto all_panels = Container::Vertical({
+        wv,
+        preset_panel
+        });
 
     auto layout = Renderer(all_panels, [&] {
         return vbox({
             first_song,
             separatorEmpty(),
-            wv.OnRender(),
+            wv->OnRender(),
             separatorEmpty(),
             second_song,
             separatorEmpty(),

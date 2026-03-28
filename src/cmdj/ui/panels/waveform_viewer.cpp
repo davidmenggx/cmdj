@@ -7,6 +7,7 @@
 #include <ftxui/dom/elements.hpp>
 #include <ftxui/dom/canvas.hpp>
 #include "ftxui/screen/terminal.hpp"
+#include <ftxui/component/event.hpp>
 
 using namespace ftxui;
 
@@ -63,4 +64,27 @@ Element ui::WaveformViewer::OnRender() {
         foreground | center,
         transparent_overlay | center
         }) | flex;
+}
+
+// TODO: This is a temporary fix!!! THE VIEWER SHOULD NOT DIRECTLY UPDATE THE APP STATE
+bool ui::WaveformViewer::OnEvent(Event event) {
+    // move track 1 (top)
+    if (event == Event::Character('a')) {
+        m_app_state.m_first_track_offset += 5;
+        return true;
+    }
+    if (event == Event::Character('d')) {
+        m_app_state.m_first_track_offset -= 5;
+        return true;
+    }
+    // move track 2 (bottom)
+    if (event == Event::Character('z')) {
+        m_app_state.m_second_track_offset += 5;
+        return true;
+    }
+    if (event == Event::Character('c')) {
+        m_app_state.m_second_track_offset -= 5;
+        return true;
+    }
+    return false;
 }

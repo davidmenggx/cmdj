@@ -13,5 +13,5 @@ namespace ui::theme {
 	inline const ftxui::Color kButtonFocused{ ftxui::Color{ 30, 30, 30 } };
 
 	// Waveform viewer themes
-	inline const ftxui::Color kWaveformBackground{ ftxui::Color{ 15, 15, 15 } };
+	inline const ftxui::Color kWaveformBackground{ ftxui::Color{ 25, 25, 25, 128 } };
 }

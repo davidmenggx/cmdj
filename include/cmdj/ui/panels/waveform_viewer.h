@@ -13,5 +13,8 @@ namespace ui {
 		WaveformViewer(core::AppState& app_state);
 		ftxui::Element OnRender() override;
 		// do i want an OnEvent here?
+
+		// helpers:
+		ftxui::Element DrawWaveforms(int term_width, int term_height);
 	};
 }
